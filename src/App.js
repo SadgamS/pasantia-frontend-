@@ -8,6 +8,9 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
 
+// react-router components
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
 
@@ -37,14 +40,54 @@ function App() {
     whiteSidenav,
     darkMode,
   } = controller;
+
+  const getRoutes = (allRoutes) =>
+    allRoutes.map((route) => {
+      if (route.collapse) {
+        return getRoutes(route.collapse);
+      }
+
+      if (route.route) {
+        return <Route exact path={route.route} element={route.component} key={route.key} />;
+      }
+
+      return null;
+    });
+
+  // Open sidenav when mouse enter on mini sidenav
+   const handleOnMouseEnter = () => {
+    if (miniSidenav && !onMouseEnter) {
+      setMiniSidenav(dispatch, false);
+      setOnMouseEnter(true);
+    }
+  };
+
+  // Close sidenav when mouse leave mini sidenav
+  const handleOnMouseLeave = () => {
+    if (onMouseEnter) {
+      setMiniSidenav(dispatch, true);
+      setOnMouseEnter(false);
+    }
+  };
+
+
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <Sidenav
-        color={sidenavColor}
-        rand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-        brandName="Material Dashboard 2" 
-        routes={routes}
-      />
+      <CssBaseline />
+      {layout === 'dashboard' && (        
+        <Sidenav
+          color={sidenavColor}
+          brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+          brandName="Sistema Pasantia" 
+          routes={routes}
+          onMouseEnter={handleOnMouseEnter}
+          onMouseLeave={handleOnMouseLeave}
+        />
+      )}
+      <Routes>
+        {getRoutes(routes)}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
     </ThemeProvider>
   );
 }
