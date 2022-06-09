@@ -40,13 +40,18 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useMaterialUIController } from "context";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const [controller, dispatch] = useMaterialUIController();
+  const { darkMode } = controller;
+
 
   return (
     <BasicLayout image={bgImage}>
@@ -103,8 +108,12 @@ function Basic() {
               />
 
             </MDBox>
-        <InputLabel mb={2} htmlFor="outlined-adornment-password">Password</InputLabel>
+            
+            <FormControl variant="outlined" fullWidth>
+
+        <InputLabel mb={2} htmlFor="outlined-adornment-password" >Password</InputLabel>
           <OutlinedInput
+           
             id="outlined-adornment-password"
             type={false ? "text" : "password"}
             // onChange={handleChange("password")}
@@ -115,13 +124,14 @@ function Basic() {
                   // onClick={handleClickShowPassword}
                   // onMouseDown={handleMouseDownPassword}
                   edge="end"
-                >
-                  {true ? <VisibilityOff /> : <Visibility />}
+                  >
+                  {true ? <VisibilityOff color={darkMode ? "white" : "inherit"}/> : <Visibility color="white"/>}
                 </IconButton>
               </InputAdornment>
             }
             label="Password"
-          />
+            />
+            </FormControl >
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>
                 Ingresar

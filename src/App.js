@@ -27,6 +27,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { useState } from 'react';
 
 function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -40,6 +41,8 @@ function App() {
     whiteSidenav,
     darkMode,
   } = controller;
+
+  const [onMouseEnter, setOnMouseEnter] = useState(false);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
