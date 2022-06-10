@@ -43,6 +43,8 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useMaterialUIController } from "context";
+import { useForm } from "react-hook-form";
+import apiClient from "services/api";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -51,6 +53,30 @@ function Basic() {
 
   const [controller, dispatch] = useMaterialUIController();
   const { darkMode } = controller;
+
+  const { register, handleSubmit, formState: {errors} } = useForm();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () =>{
+  
+    setShowPassword(!showPassword);
+  }
+
+
+  const onSubmit = (data) => {
+    console.log(data.email)
+    apiClient.get('/sanctum/csrf-cookie')
+    .then(response => {
+      apiClient.post('/login', {
+          email: data.email,
+          password: data.password
+      }).then(response => {
+          console.log(response)
+      })
+  });
+
+  };
 
 
   return (
@@ -89,51 +115,48 @@ function Basic() {
           </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form" onSubmit={handleSubmit(onSubmit)}>
             <MDBox mb={2}>
               <MDInput 
-                type="email" 
+                // type="email" 
                 label="Email"
-                required
                 autoFocus    
                 fullWidth 
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput 
-                type="password" 
-                label="Password" 
-                required
-                fullWidth 
-              />
+                {...register("email", {required: "Required",
+                                        pattern:{
+                                          value: /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i,
+                                          message: "Invalid email address"
+                                        },})}
+                error={!!errors?.email}
+                helperText={errors?.email ? errors.email.message : null}
 
+              />
             </MDBox>
             
-            <FormControl variant="outlined" fullWidth>
-
-        <InputLabel mb={2} htmlFor="outlined-adornment-password" >Password</InputLabel>
-          <OutlinedInput
-           
-            id="outlined-adornment-password"
-            type={false ? "text" : "password"}
-            // onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  // onClick={handleClickShowPassword}
-                  // onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                  >
-                  {true ? <VisibilityOff color={darkMode ? "white" : "inherit"}/> : <Visibility color="white"/>}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-            />
-            </FormControl >
+            <FormControl mb={2} variant="outlined" fullWidth>
+            <InputLabel  htmlFor="outlined-adornment-password" >Password</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                {...register("password", {required: "Required"})}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                      >
+                      {showPassword ? <VisibilityOff color={darkMode ? "white" : "inherit"}/> : <Visibility color={darkMode ? "white" : "inherit"}/>}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                />
+              </FormControl >
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton type="submit" variant="gradient" color="info" fullWidth>
                 Ingresar
               </MDButton>
               <MDBox display="flex" alignItems="center" ml={-1} mt={1}>
