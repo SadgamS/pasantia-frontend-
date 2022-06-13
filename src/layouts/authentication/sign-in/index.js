@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -32,7 +32,6 @@ import GoogleIcon from "@mui/icons-material/Google";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 // Authentication layout components
@@ -40,39 +39,44 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { TextField } from "@mui/material";
 import { useMaterialUIController } from "context";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import apiClient from "services/api";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
-  const [controller, dispatch] = useMaterialUIController();
-  const { darkMode } = controller;
-
-  const { register, handleSubmit, formState: {errors} } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const handleClickShowPassword = () =>{
   
     setShowPassword(!showPassword);
   }
 
+  const schema = yup.object({
+    Usuario: yup.string().required("Usuario es requerido"),
+    Contraseña: yup.string().min(4, "Minimo 5 caracteres").required("Contraseña es requerida"),
 
+  }).required()
+  
+  const { handleSubmit, control } = useForm({
+    resolver: yupResolver(schema)
+  });
+
+  let navigate = useNavigate();
+  
   const onSubmit = (data) => {
-    console.log(data.email)
+    console.log(data.Usuario)
     apiClient.get('/sanctum/csrf-cookie')
     .then(response => {
       apiClient.post('/login', {
-          email: data.email,
-          password: data.password
+          name: data.Usuario,
+          password: data.Contraseña
       }).then(response => {
-          console.log(response)
+          console.log(response);
+          navigate("/dashboard");
       })
   });
 
@@ -116,8 +120,24 @@ function Basic() {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form" onSubmit={handleSubmit(onSubmit)}>
+            
             <MDBox mb={2}>
-              <MDInput 
+              <Controller 
+                name="Usuario"
+                control={control}
+                defaultValue=""
+                render={({field: {onChange, value}, fieldState: {error}})=> (
+                  <TextField
+                    fullWidth
+                    label="Usuario"
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                  />
+                )}
+              />
+              {/* <MDInput 
                 // type="email" 
                 label="Email"
                 autoFocus    
@@ -130,17 +150,36 @@ function Basic() {
                 error={!!errors?.email}
                 helperText={errors?.email ? errors.email.message : null}
 
+              /> */}
+            </MDBox>
+
+            <MDBox mb={2}>
+              <Controller 
+                name="Contraseña"
+                control={control}
+                defaultValue=""
+                render={({field: {onChange, value}, fieldState: {error}})=> (
+                  <TextField
+                    fullWidth
+                    type={showPassword ? "text" : "password"}
+                    label="Contraseña"
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                  />
+                )}
               />
             </MDBox>
             
-            <FormControl mb={2} variant="outlined" fullWidth>
+            {/* <FormControl mb={2} variant="outlined" fullWidth>
             <InputLabel  htmlFor="outlined-adornment-password" >Password</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {required: "Required"})}
                 error={!!errors?.password}
-                helperText={errors?.password ? errors.password.message : null}
+                // helperText={errors?.password ? errors.password.message : null}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -154,23 +193,23 @@ function Basic() {
                 }
                 label="Password"
                 />
-              </FormControl >
-            <MDBox mt={4} mb={1}>
-              <MDButton type="submit" variant="gradient" color="info" fullWidth>
-                Ingresar
-              </MDButton>
+              </FormControl > */}
               <MDBox display="flex" alignItems="center" ml={-1} mt={1}>
-                <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+                <Switch checked={showPassword} onChange={handleClickShowPassword} />
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
                   color="text"
-                  onClick={handleSetRememberMe}
+                  onClick={handleClickShowPassword}
                   sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
                 >
-                  &nbsp;&nbsp;Recuerdame
+                  &nbsp;&nbsp;Mostrar Contraseña
                 </MDTypography>
               </MDBox>
+            <MDBox mt={4} mb={1}>
+              <MDButton type="submit" variant="gradient" color="info" fullWidth>
+                Ingresar
+              </MDButton>
             </MDBox>              
           </MDBox>
         </MDBox>

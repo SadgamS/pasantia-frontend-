@@ -129,8 +129,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
+  useEffect(() => {
+    if (darkMode) {
+      localStorage.setItem('theme', 'dark')
+    }else{
+      localStorage.setItem('theme', 'light')
+    }
+  }, [dispatch, darkMode])
+  
   // Change DarkMode or LightMode
-  const handleDarkMode = () => setDarkMode(dispatch, !darkMode);
+  const handleDarkMode = () => {
+    setDarkMode(dispatch, !darkMode);
+  };
 
   return (
     <AppBar

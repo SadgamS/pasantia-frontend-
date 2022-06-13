@@ -27,7 +27,8 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { setDarkMode } from 'context';
 
 function App() {
   const [controller, dispatch] = useMaterialUIController();

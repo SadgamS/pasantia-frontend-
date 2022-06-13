@@ -80,7 +80,7 @@ function MaterialUIControllerProvider({ children }) {
     openConfigurator: false,
     direction: "ltr",
     layout: "dashboard",
-    darkMode: false,
+    darkMode: (localStorage.getItem('theme')==="dark" ? true : false),
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
