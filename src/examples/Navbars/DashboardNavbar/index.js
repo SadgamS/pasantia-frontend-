@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // react-router components
 import { useLocation, Link } from "react-router-dom";
@@ -51,19 +51,13 @@ import {
 } from "examples/Navbars/DashboardNavbar/styles";
 
 // Material Dashboard 2 React context
-import {
-  useMaterialUIController,
-  setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
-  setDarkMode,
-} from "context";
+
+import { MaterialUI } from 'theme/context/themeContext';
 import { Tooltip } from "@mui/material";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
-  const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
+  const { setTransparentNavbar, setMiniSidenav,setOpenConfigurator,setDarkMode,miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = useContext( MaterialUI );
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
@@ -77,7 +71,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
     // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
-      setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
+      setTransparentNavbar((fixedNavbar && window.scrollY === 0) || !fixedNavbar);
     }
 
     /** 
@@ -91,10 +85,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
     // Remove event listener on cleanup
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
-  }, [dispatch, fixedNavbar]);
+  }, [fixedNavbar]);
 
-  const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleMiniSidenav = () => setMiniSidenav(!miniSidenav);
+  const handleConfiguratorOpen = () => setOpenConfigurator(!openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
@@ -135,11 +129,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
     }else{
       localStorage.setItem('theme', 'light')
     }
-  }, [dispatch, darkMode])
+  }, [darkMode])
   
   // Change DarkMode or LightMode
   const handleDarkMode = () => {
-    setDarkMode(dispatch, !darkMode);
+    setDarkMode(!darkMode);
   };
 
   return (

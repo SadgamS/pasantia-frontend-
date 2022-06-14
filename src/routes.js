@@ -105,6 +105,29 @@ const routes = [
     route: "/authentication/sign-in",
     component: <SignIn />,
   },
+  {
+    type: "title",
+    title: "Users",
+    key: "users"
+  },
+  {
+    type: "divider",
+    key: "div"
+  },
+  {
+    type: "collapse",
+    name: "Others",
+    key: "others",
+    href: "/",
+    icon: <Icon fontSize="small">login</Icon>,
+    collapse: [
+      {
+        name: "Analytics",
+        key: "analytics",
+        route: "/dashboards/analytics",
+      }
+    ]
+  }
   // {
   //   type: "collapse",
   //   name: "Sign Up",

@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -22,15 +22,14 @@ import PropTypes from "prop-types";
 import MDTypographyRoot from "components/MDTypography/MDTypographyRoot";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController } from "context";
+import { MaterialUI } from "theme/context/themeContext";
 
 const MDTypography = forwardRef(
   (
     { color, fontWeight, textTransform, verticalAlign, textGradient, opacity, children, ...rest },
     ref
   ) => {
-    const [controller] = useMaterialUIController();
-    const { darkMode } = controller;
+    const { darkMode } = useContext( MaterialUI );
 
     return (
       <MDTypographyRoot

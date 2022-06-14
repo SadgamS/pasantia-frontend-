@@ -13,6 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+import { useContext } from "react";
+
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
 
@@ -34,11 +36,10 @@ import {
 } from "examples/Sidenav/styles/sidenavCollapse";
 
 // Material Dashboard 2 React context
-import { useMaterialUIController } from "context";
+import { MaterialUI } from 'theme/context/themeContext';
 
 function SidenavCollapse({ icon, name, active, ...rest }) {
-  const [controller] = useMaterialUIController();
-  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
+  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = useContext( MaterialUI );
 
   return (
     <ListItem component="li">

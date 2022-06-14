@@ -28,6 +28,7 @@ import MuiLink from "@mui/material/Link";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -40,11 +41,12 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { TextField } from "@mui/material";
-import { useMaterialUIController } from "context";
+// import { useMaterialUIController } from "context";
 import { useForm, Controller } from "react-hook-form";
 import apiClient from "services/api";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import MDInput from "components/MDInput";
 
 function Basic() {
 
@@ -137,20 +139,6 @@ function Basic() {
                   />
                 )}
               />
-              {/* <MDInput 
-                // type="email" 
-                label="Email"
-                autoFocus    
-                fullWidth 
-                {...register("email", {required: "Required",
-                                        pattern:{
-                                          value: /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i,
-                                          message: "Invalid email address"
-                                        },})}
-                error={!!errors?.email}
-                helperText={errors?.email ? errors.email.message : null}
-
-              /> */}
             </MDBox>
 
             <MDBox mb={2}>

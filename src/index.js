@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { MaterialUIProvider } from "theme/context/themeProvider";
 
-// Material Dashboard 2 React Context Provider
-import { MaterialUIControllerProvider } from "context";
 import { BrowserRouter } from 'react-router-dom';
 
 
@@ -12,9 +11,9 @@ import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <MaterialUIControllerProvider>
+    <MaterialUIProvider>
       <App />
-    </MaterialUIControllerProvider>
+    </MaterialUIProvider>
   </BrowserRouter>
 );
 

@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
 // react-router-dom components
 import { useLocation, NavLink } from "react-router-dom";
@@ -39,17 +39,17 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+
 // Material Dashboard 2 React context
-import {
-  useMaterialUIController,
-  setMiniSidenav,
-  setTransparentSidenav,
-  setWhiteSidenav,
-} from "context";
+import { MaterialUI } from 'theme/context/themeContext';
+
+import { Collapse, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
-  const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
+  const {miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor, setMiniSidenav, setTransparentSidenav, setWhiteSidenav} = useContext( MaterialUI );
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
 
@@ -61,14 +61,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     textColor = "inherit";
   }
 
-  const closeSidenav = () => setMiniSidenav(dispatch, true);
+  const closeSidenav = () => setMiniSidenav(true);
 
   useEffect(() => {
     // A function that sets the mini state of the sidenav.
     function handleMiniSidenav() {
-      setMiniSidenav(dispatch, window.innerWidth < 1200);
-      setTransparentSidenav(dispatch, window.innerWidth < 1200 ? false : transparentSidenav);
-      setWhiteSidenav(dispatch, window.innerWidth < 1200 ? false : whiteSidenav);
+      setMiniSidenav(window.innerWidth < 1200);
+      setTransparentSidenav(window.innerWidth < 1200 ? false : transparentSidenav);
+      setWhiteSidenav(window.innerWidth < 1200 ? false : whiteSidenav);
     }
 
     /** 
@@ -81,13 +81,23 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleMiniSidenav);
-  }, [dispatch, location]);
+  }, [location]);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
 
     if (type === "collapse") {
+      // if (collapse != undefined) {
+      //   returnValue=(<ListItemButton >
+      //       <ListItemIcon>
+      //     <InboxIcon />
+      //   </ListItemIcon>
+      //   <ListItemText primary="Inbox" />
+      //   {true ? <ExpandLess /> : <ExpandMore />}
+      //   </ListItemButton>)
+      // }
+
       returnValue = href ? (
         <Link
           href={href}
@@ -106,6 +116,16 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       ) : (
         <NavLink key={key} to={route}>
           <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
+          <Collapse in={true} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItemButton>
+        </List>
+      </Collapse>
         </NavLink>
       );
     } else if (type === "title") {

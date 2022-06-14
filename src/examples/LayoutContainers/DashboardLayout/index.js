@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
 // react-router-dom components
 import { useLocation } from "react-router-dom";
@@ -25,15 +25,15 @@ import PropTypes from "prop-types";
 import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React context
-import { useMaterialUIController, setLayout } from "context";
+import { MaterialUI } from 'theme/context/themeContext';
+
 
 function DashboardLayout({ children }) {
-  const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav } = controller;
+  const { setLayout, miniSidenav } = useContext( MaterialUI );
   const { pathname } = useLocation();
 
   useEffect(() => {
-    setLayout(dispatch, "dashboard");
+    setLayout("dashboard");
   }, [pathname]);
 
   return (
