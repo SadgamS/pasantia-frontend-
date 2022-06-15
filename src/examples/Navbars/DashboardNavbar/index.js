@@ -30,7 +30,6 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
 
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -123,14 +122,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
-  useEffect(() => {
-    if (darkMode) {
-      localStorage.setItem('theme', 'dark')
-    }else{
-      localStorage.setItem('theme', 'light')
-    }
-  }, [darkMode])
-  
   // Change DarkMode or LightMode
   const handleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -142,6 +133,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       color="inherit"
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
+            
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
@@ -149,21 +141,21 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-
+              
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Tooltip title={!darkMode ? "Modo Oscuro" : "Modo Claro"} >
-                <IconButton sx={navbarIconButton} size="medium" disableRipple onClick={handleDarkMode}>
-                  {darkMode ? <WbSunnyIcon sx={iconsStyle}/> : <DarkModeOutlinedIcon sx={iconsStyle}/> }
-                </IconButton>
-              </Tooltip>
+
+              <IconButton sx={navbarIconButton} size="medium" disableRipple onClick={handleDarkMode}>
+                {darkMode ? <WbSunnyIcon sx={iconsStyle}/> : <DarkModeOutlinedIcon sx={iconsStyle}/> }
+              </IconButton>
+
               <IconButton
                 size="small"
                 disableRipple
                 color="inherit"
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
-              >
+                >
                 <Icon sx={iconsStyle} fontSize="medium">
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>

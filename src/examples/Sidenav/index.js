@@ -53,6 +53,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
 
+  console.log(miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor)
+
   let textColor = "white";
 
   if (transparentSidenav || (whiteSidenav && !darkMode)) {
@@ -63,25 +65,25 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   const closeSidenav = () => setMiniSidenav(true);
 
-  useEffect(() => {
-    // A function that sets the mini state of the sidenav.
-    function handleMiniSidenav() {
-      setMiniSidenav(window.innerWidth < 1200);
-      setTransparentSidenav(window.innerWidth < 1200 ? false : transparentSidenav);
-      setWhiteSidenav(window.innerWidth < 1200 ? false : whiteSidenav);
-    }
+  // useEffect(() => {
+  //   // A function that sets the mini state of the sidenav.
+  //   function handleMiniSidenav() {
+  //     setMiniSidenav(window.innerWidth < 1200);
+  //     setTransparentSidenav(window.innerWidth < 1200 ? false : transparentSidenav);
+  //     setWhiteSidenav(window.innerWidth < 1200 ? false : whiteSidenav);
+  //   }
 
-    /** 
-     The event listener that's calling the handleMiniSidenav function when resizing the window.
-    */
-    window.addEventListener("resize", handleMiniSidenav);
+  //   /** 
+  //    The event listener that's calling the handleMiniSidenav function when resizing the window.
+  //   */
+  //   window.addEventListener("resize", handleMiniSidenav);
 
-    // Call the handleMiniSidenav function to set the state with the initial value.
-    handleMiniSidenav();
+  //   // Call the handleMiniSidenav function to set the state with the initial value.
+  //   handleMiniSidenav();
 
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleMiniSidenav);
-  }, [location]);
+  //   // Remove event listener on cleanup
+  //   return () => window.removeEventListener("resize", handleMiniSidenav);
+  // }, []);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
@@ -116,7 +118,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       ) : (
         <NavLink key={key} to={route}>
           <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
-          <Collapse in={true} timeout="auto" unmountOnExit>
+          {/* <Collapse in={true} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
@@ -125,7 +127,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <ListItemText primary="Starred" />
           </ListItemButton>
         </List>
-      </Collapse>
+      </Collapse> */}
         </NavLink>
       );
     } else if (type === "title") {

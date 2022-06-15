@@ -1,5 +1,5 @@
 // Material Dashboard 2 React reducer
-export function themeReducer(state, action) {
+export const themeReducer = (state = {}, action) => {
     switch (action.type) {
       case "MINI_SIDENAV": {
         return { ...state, miniSidenav: action.value };
