@@ -31,9 +31,9 @@ import GoogleIcon from "@mui/icons-material/Google";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
+import MDBox from "theme/components/MDBox";
+import MDTypography from "theme/components/MDTypography";
+import MDButton from "theme/components/MDButton";
 
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
@@ -46,7 +46,7 @@ import { useForm, Controller } from "react-hook-form";
 import apiClient from "services/api";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import MDInput from "components/MDInput";
+import MDInput from "theme/components/MDInput";
 
 function Basic() {
 

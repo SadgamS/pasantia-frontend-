@@ -29,7 +29,7 @@ import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
+import MDBox from "theme/components/MDBox";
 
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -50,9 +50,8 @@ import {
 } from "examples/Navbars/DashboardNavbar/styles";
 
 // Material Dashboard 2 React context
-
 import { MaterialUI } from 'theme/context/themeContext';
-import { Tooltip } from "@mui/material";
+
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -67,21 +66,20 @@ function DashboardNavbar({ absolute, light, isMini }) {
     } else {
       setNavbarType("static");
     }
-
     // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
       setTransparentNavbar((fixedNavbar && window.scrollY === 0) || !fixedNavbar);
     }
-
+    
     /** 
      The event listener that's calling the handleTransparentNavbar function when 
      scrolling the window.
-    */
+     */
     window.addEventListener("scroll", handleTransparentNavbar);
-
+    
     // Call the handleTransparentNavbar function to set the state with the initial value.
-    handleTransparentNavbar();
-
+    // handleTransparentNavbar();
+    
     // Remove event listener on cleanup
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [fixedNavbar]);
@@ -136,6 +134,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
             
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
+        <MDBox
+          display={{ xs: "none", xl: "block" }}   
+          sx={{pr: 1}}     
+        >
+          <IconButton sx={navbarIconButton} disableRipple color="inherit" onClick={handleMiniSidenav}>
+            <Icon sx={iconsStyle} fontSize="large">{miniSidenav ? "menu_open" : "menu"}</Icon>
+          </IconButton>
+        </MDBox>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
         </MDBox>
         {isMini ? null : (
@@ -144,11 +150,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
               
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-
-              <IconButton sx={navbarIconButton} size="medium" disableRipple onClick={handleDarkMode}>
-                {darkMode ? <WbSunnyIcon sx={iconsStyle}/> : <DarkModeOutlinedIcon sx={iconsStyle}/> }
-              </IconButton>
-
               <IconButton
                 size="small"
                 disableRipple
@@ -159,6 +160,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon sx={iconsStyle} fontSize="medium">
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
+              </IconButton>
+              <IconButton sx={navbarIconButton} size="medium" disableRipple onClick={handleDarkMode}>
+                {darkMode ? <WbSunnyIcon sx={iconsStyle}/> : <DarkModeOutlinedIcon sx={iconsStyle}/> }
               </IconButton>
               <IconButton
                 size="small"

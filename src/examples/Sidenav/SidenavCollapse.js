@@ -25,7 +25,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
+import MDBox from "theme/components/MDBox";
 
 // Custom styles for the SidenavCollapse
 import {

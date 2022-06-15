@@ -19,10 +19,10 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 // Material Dashboard 2 React components
-import MDTypography from "components/MDTypography";
+import MDTypography from "theme/components/MDTypography";
 
 // Custom styles for MDProgress
-import MDProgressRoot from "components/MDProgress/MDProgressRoot";
+import MDProgressRoot from "theme/components/MDProgress/MDProgressRoot";
 
 const MDProgress = forwardRef(({ variant, color, value, label, ...rest }, ref) => (
   <>

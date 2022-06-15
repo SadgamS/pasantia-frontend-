@@ -17,10 +17,10 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Tooltip from "@mui/material/Tooltip";
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDAvatar from "components/MDAvatar";
-import MDProgress from "components/MDProgress";
+import MDBox from "theme/components/MDBox";
+import MDTypography from "theme/components/MDTypography";
+import MDAvatar from "theme/components/MDAvatar";
+import MDProgress from "theme/components/MDProgress";
 
 // Images
 import logoXD from "assets/images/small-logos/logo-xd.svg";

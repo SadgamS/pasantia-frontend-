@@ -20,7 +20,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 // Material Dashboard 2 React contexts
 import { useEffect, useState, useContext } from 'react';
-import MDBox from "components/MDBox";
+import MDBox from "theme/components/MDBox";
 import { AppTheme } from "theme/AppTheme";
 import { MaterialUI } from "theme/context/themeContext";
 

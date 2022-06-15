@@ -28,9 +28,8 @@ import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
+import MDBox from "theme/components/MDBox";
+import MDTypography from "theme/components/MDTypography";
 
 // Material Dashboard 2 React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
@@ -42,6 +41,9 @@ import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 // Material Dashboard 2 React context
 import { MaterialUI } from 'theme/context/themeContext';
@@ -53,7 +55,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
 
-  console.log(miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor)
+  // console.log(miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor)
 
   let textColor = "white";
 
@@ -64,26 +66,27 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   }
 
   const closeSidenav = () => setMiniSidenav(true);
+  const closeOpenSidenav = () => setMiniSidenav(!miniSidenav);
 
-  // useEffect(() => {
-  //   // A function that sets the mini state of the sidenav.
-  //   function handleMiniSidenav() {
-  //     setMiniSidenav(window.innerWidth < 1200);
-  //     setTransparentSidenav(window.innerWidth < 1200 ? false : transparentSidenav);
-  //     setWhiteSidenav(window.innerWidth < 1200 ? false : whiteSidenav);
-  //   }
+  useEffect(() => {
+    // A function that sets the mini state of the sidenav.
+    function handleMiniSidenav() {
+      setMiniSidenav(window.innerWidth < 1200);
+      setTransparentSidenav(window.innerWidth < 1200 ? false : transparentSidenav);
+      setWhiteSidenav(window.innerWidth < 1200 ? false : whiteSidenav);
+    }
 
-  //   /** 
-  //    The event listener that's calling the handleMiniSidenav function when resizing the window.
-  //   */
-  //   window.addEventListener("resize", handleMiniSidenav);
+    /** 
+     The event listener that's calling the handleMiniSidenav function when resizing the window.
+    */
+    window.addEventListener("resize", handleMiniSidenav);
 
-  //   // Call the handleMiniSidenav function to set the state with the initial value.
-  //   handleMiniSidenav();
+    // Call the handleMiniSidenav function to set the state with the initial value.
+    handleMiniSidenav();
 
-  //   // Remove event listener on cleanup
-  //   return () => window.removeEventListener("resize", handleMiniSidenav);
-  // }, []);
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleMiniSidenav);
+  }, [location]);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
