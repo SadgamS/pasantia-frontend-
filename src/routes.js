@@ -36,7 +36,8 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 React layouts
-import Dashboard from "layouts/dashboard";
+// import Dashboard from "layouts/dashboard";
+import {Dashboard} from "pasantia/pages/Dashboard";
 // import Tables from "layouts/tables";
 // import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
@@ -44,6 +45,7 @@ import Dashboard from "layouts/dashboard";
 // import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 // import SignUp from "layouts/authentication/sign-up";
+import { LoginPage } from "auth/pages/LoginPage";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -103,7 +105,7 @@ const routes = [
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
-    component: <SignIn />,
+    component: <LoginPage />,
   },
   {
     type: "title",

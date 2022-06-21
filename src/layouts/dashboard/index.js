@@ -22,6 +22,7 @@ import MDBox from "theme/components/MDBox";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 // import Footer from "examples/Footer";
 // import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 // import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
@@ -40,6 +41,7 @@ function Dashboard() {
 
   return (
     <DashboardLayout>
+      {/* <DefaultNavbar /> */}
       <DashboardNavbar />
       <div>Pagina del Dashboard</div>
     </DashboardLayout>

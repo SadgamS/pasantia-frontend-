@@ -8,7 +8,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
+import Configurator from "pasantia/components/Configurator/Configurator";
 
 
 // Material Dashboard 2 React routes
