@@ -38,9 +38,24 @@ export default styled(TextField)(({ theme, ownerState }) => {
       },
     },
 
+    "& .MuiInputLabel-root": {
+      color: colorError.main,
+    },
     "& .MuiInputLabel-root.Mui-focused": {
       color: colorError.main,
     },
+    "& .MuiFormHelperText-root": {
+      color: colorError.main,
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor:  colorError.main,
+      },
+      '&:hover fieldset': {
+        borderColor: colorError.main,
+      },
+    },
+   
   });
 
   // styles for the input with success={true}
@@ -60,6 +75,9 @@ export default styled(TextField)(({ theme, ownerState }) => {
     "& .MuiInputLabel-root.Mui-focused": {
       color: colorSuccess.main,
     },
+    "& .MuiFormHelperText-root": {
+      color: colorSuccess.main,
+    }
   });
 
   return {

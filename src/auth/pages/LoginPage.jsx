@@ -17,13 +17,14 @@ import { BasicLayout } from "layout/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { TextField } from "@mui/material";
+import { Alert, TextField } from "@mui/material";
 // import { useMaterialUIController } from "context";
 import { useForm, Controller } from "react-hook-form";
 import apiClient from "services/api";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import MDInput from "theme/components/MDInput";
+import MDAlert from "theme/components/MDAlert";
 
 
 export const LoginPage = () => {
@@ -86,7 +87,7 @@ export const LoginPage = () => {
                 control={control}
                 defaultValue=""
                 render={({field: {onChange, value}, fieldState: {error}})=> (
-                  <TextField
+                  <MDInput
                     fullWidth
                     label="Usuario"
                     value={value}
@@ -103,7 +104,7 @@ export const LoginPage = () => {
                 control={control}
                 defaultValue=""
                 render={({field: {onChange, value}, fieldState: {error}})=> (
-                  <TextField
+                  <MDInput
                     fullWidth
                     type={showPassword ? "text" : "password"}
                     label="Contraseña"
@@ -127,6 +128,11 @@ export const LoginPage = () => {
                 &nbsp;&nbsp;Mostrar Contraseña
               </MDTypography>
             </MDBox>
+            <Alert sx={{ mt: 2, fontSize: "small"}} variant="filled" severity="error">
+                 Error en las credeciales!
+            </Alert>
+
+         
             <MDBox mt={4} mb={1}>
               <MDButton type="submit" variant="gradient" color="info" fullWidth>
                 Ingresar
