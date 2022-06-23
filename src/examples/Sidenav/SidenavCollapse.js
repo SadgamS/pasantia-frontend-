@@ -37,6 +37,7 @@ import {
 
 // Material Dashboard 2 React context
 import { MaterialUI } from 'theme/context/themeContext';
+import ExpandLess from "@mui/icons-material/ExpandLess";
 
 function SidenavCollapse({ icon, name, active, ...rest }) {
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = useContext( MaterialUI );
@@ -78,6 +79,7 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
             })
           }
         />
+      <ExpandLess />
       </MDBox>
     </ListItem>
   );

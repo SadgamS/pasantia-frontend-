@@ -117,27 +117,27 @@ const routes = [
     key: "div"
   },
   {
-    type: "collapse",
+    type: "submenu",
     name: "Others",
     key: "others",
-    href: "/",
     icon: <Icon fontSize="small">login</Icon>,
     collapse: [
       {
         name: "Analytics",
         key: "analytics",
         route: "/dashboards/analytics",
+        component: <LoginPage />,
       }
     ]
-  }
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-up",
+    component: <LoginPage />,
+  },
 ];
 
 export default routes;

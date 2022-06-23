@@ -89,50 +89,30 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   }, [location]);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
+  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route, collapse }) => {
     let returnValue;
-
     if (type === "collapse") {
-      // if (collapse != undefined) {
-      //   returnValue=(<ListItemButton >
-      //       <ListItemIcon>
-      //     <InboxIcon />
-      //   </ListItemIcon>
-      //   <ListItemText primary="Inbox" />
-      //   {true ? <ExpandLess /> : <ExpandMore />}
-      //   </ListItemButton>)
-      // }
-
-      returnValue = href ? (
-        <Link
+        returnValue = href ? (
+          <Link
           href={href}
           key={key}
           target="_blank"
           rel="noreferrer"
           sx={{ textDecoration: "none" }}
-        >
-          <SidenavCollapse
-            name={name}
-            icon={icon}
-            active={key === collapseName}
-            noCollapse={noCollapse}
-          />
-        </Link>
-      ) : (
-        <NavLink key={key} to={route}>
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
-          {/* <Collapse in={true} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
+          >
+            <SidenavCollapse
+              name={name}
+              icon={icon}
+              active={key === collapseName}
+              noCollapse={noCollapse}
+            />
+          </Link>
+        ) : (
+          <NavLink key={key} to={route}>
+            <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
+          </NavLink>
+        );
 
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItemButton>
-        </List>
-      </Collapse> */}
-        </NavLink>
-      );
     } else if (type === "title") {
       returnValue = (
         <MDTypography
@@ -160,8 +140,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           }
         />
       );
-    }
-
+    } 
+    // else if (type === "submenu") {
+    //   returnValue = (
+    //     <ListItemButton key={key}>
+    //       <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
+    //     </ListItemButton>
+    //   )
+    // }
     return returnValue;
   });
 

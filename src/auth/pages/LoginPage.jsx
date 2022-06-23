@@ -6,29 +6,30 @@ import { useNavigate } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
-
+import SendIcon from '@mui/icons-material/Send';
 // Material Dashboard 2 React components
 import MDBox from "theme/components/MDBox";
 import MDTypography from "theme/components/MDTypography";
-import MDButton from "theme/components/MDButton";
 
 // Authentication layout components
 import { BasicLayout } from "layout/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { Alert, TextField } from "@mui/material";
+import { Alert } from "@mui/material";
 // import { useMaterialUIController } from "context";
 import { useForm, Controller } from "react-hook-form";
 import apiClient from "services/api";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import MDInput from "theme/components/MDInput";
-import MDAlert from "theme/components/MDAlert";
+import MDLoadingButton from "theme/components/MDLoadingButton";
 
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState({AuthError: false, UnknownError: false});
+  const [loading, setLoading] = useState(false);
   
   const handleClickShowPassword = () =>{
   
@@ -49,14 +50,27 @@ export const LoginPage = () => {
   
   const onSubmit = (data) => {
     console.log(data.Usuario)
+    setLoading(true);
     apiClient.get('/sanctum/csrf-cookie')
     .then(response => {
       apiClient.post('/login', {
           name: data.Usuario,
           password: data.Contraseña
       }).then(response => {
-          console.log(response);
-          navigate("/dashboard");
+          if (response.status === 200) {
+            console.log(response);
+            setLoading(false);
+            navigate("/dashboard");
+          }
+      }).catch(error => {
+          if (error.response && error.response.status === 422) {
+            setError({AuthError: true, UnknownError: false})
+            setLoading(false);
+          }else{
+            setError({ AuthError: false, UnknownError: true })
+            console.error(error)
+            setLoading(false);
+          }
       })
   });
 
@@ -128,15 +142,24 @@ export const LoginPage = () => {
                 &nbsp;&nbsp;Mostrar Contraseña
               </MDTypography>
             </MDBox>
-            <Alert sx={{ mt: 2, fontSize: "small"}} variant="filled" severity="error">
-                 Error en las credeciales!
-            </Alert>
-
-         
+            {error.AuthError ? (<Alert sx={{ mt: 2, fontSize: "small"}} variant="filled" severity="error">
+                    Error en las credeciales!
+                  </Alert>) : null}
+            {error.UnknownError ? (<Alert sx={{ mt: 2, fontSize: "small"}} variant="filled" severity="error">
+              Error en la verificacion!
+            </Alert>) : null}      
             <MDBox mt={4} mb={1}>
-              <MDButton type="submit" variant="gradient" color="info" fullWidth>
+              <MDLoadingButton
+                type="submit"
+                color="info"
+                loading={loading }
+                loadingPosition="start"
+                startIcon={<SendIcon />}
+                variant="gradient" 
+                fullWidth
+              >
                 Ingresar
-              </MDButton>
+              </MDLoadingButton>
             </MDBox>              
           </MDBox>
         </MDBox>
