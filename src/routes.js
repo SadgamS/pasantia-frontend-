@@ -49,24 +49,25 @@ import { LoginPage } from "auth/pages/LoginPage";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import { Usuarios } from "pasantia/pages/Usuarios";
 
 const routes = [
   {
     type: "collapse",
-    name: "Dashboard",
-    key: "dashboard",
+    name: "Incio",
+    key: "inicio",
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dashboard",
+    route: "/inicio",
     component: <Dashboard />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Tables",
-  //   key: "tables",
-  //   icon: <Icon fontSize="small">table_view</Icon>,
-  //   route: "/tables",
-  //   component: <Tables />,
-  // },
+  {
+    type: "collapse",
+    name: "Usuarios",
+    key: "usuarios",
+    icon: <Icon fontSize="small">groups</Icon>,
+    route: "/usuarios",
+    component: <Usuarios />,
+  },
   // {
   //   type: "collapse",
   //   name: "Billing",
@@ -104,40 +105,40 @@ const routes = [
     name: "Sign In",
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
+    route: "/auth/iniciar-sesion",
     component: <LoginPage />,
   },
-  {
-    type: "title",
-    title: "Users",
-    key: "users"
-  },
-  {
-    type: "divider",
-    key: "div"
-  },
-  {
-    type: "submenu",
-    name: "Others",
-    key: "others",
-    icon: <Icon fontSize="small">login</Icon>,
-    collapse: [
-      {
-        name: "Analytics",
-        key: "analytics",
-        route: "/dashboards/analytics",
-        component: <LoginPage />,
-      }
-    ]
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <LoginPage />,
-  },
+  // {
+  //   type: "title",
+  //   title: "Users",
+  //   key: "users"
+  // },
+  // {
+  //   type: "divider",
+  //   key: "div"
+  // },
+  // {
+  //   type: "submenu",
+  //   name: "Others",
+  //   key: "others",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "Analytics",
+  //       key: "analytics",
+  //       route: "/dashboards/analytics",
+  //       component: <LoginPage />,
+  //     }
+  //   ]
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <LoginPage />,
+  // },
 ];
 
 export default routes;

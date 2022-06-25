@@ -79,7 +79,7 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
             })
           }
         />
-      <ExpandLess />
+      {/* <ExpandLess /> */}
       </MDBox>
     </ListItem>
   );
