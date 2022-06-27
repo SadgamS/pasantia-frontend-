@@ -28,33 +28,43 @@ export const Usuarios = () => {
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
+                    sx={{
+                        display:"flex",
+                        alignItems:"center",
+                        justifyContent:"center"
+                    }}
                     >
-                    <Grid container spacing={3} >
-                    <Grid item xs={12} md={7}>
+                    {/* <Grid container spacing={3} >
+                    <Grid item xs={12} md={7}> */}
+                    <MDBox width={480} height={280} p={3}>
 
-                    <Card
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                        }}
-                    >
+                    <Card>
 
-                    <MDBox 
-                        pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center"
-                        
-                        >
-                        <MDTypography id="modal-modal-title"> Titulo </MDTypography>
-                     <MDInput label="name"/>
-                    </MDBox>
+                    <MDBox
+          variant="gradient"
+          bgColor="info"
+          borderRadius="lg"
+          coloredShadow="info"
+          mx={2}
+          mt={-3}
+          p={2}
+          mb={1}
+          textAlign="center"
+        >
+          <MDTypography variant="h4" fontWeight="medium" color="white">
+            Crear Usuario
+          </MDTypography>
+        </MDBox>
+        <MDBox pt={4} pb={3} px={3}>
+
                      <MDInput label="name"/>
                      <MDInput label="name"/>
                      <MDButton> hola</MDButton>
+        </MDBox>
                     </Card>
-                        </Grid>
-                </Grid>
+                        {/* </Grid> */}
+                {/* </Grid> */}
+                    </MDBox>
                 </Modal>
                 <div>HOla</div>
                 </Grid>
